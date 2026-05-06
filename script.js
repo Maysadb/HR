@@ -1,58 +1,61 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getDatabase, ref, push, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+import { getDatabase, ref, push, onValue, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-// 1. إعدادات Firebase الخاصة بكِ (ضعي بياناتك هنا)
+// --- 1. إعداداتك (استبدليها ببيانات مشاريعك) ---
 const firebaseConfig = {
     apiKey: "YOUR_API_KEY",
-    databaseURL: "YOUR_DATABASE_URL",
-    projectId: "YOUR_PROJECT_ID",
+    databaseURL: "YOUR_DB_URL",
+    projectId: "YOUR_PROJECT_ID"
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const employeesRef = ref(db, 'employees');
 
-// 2. إعداد EmailJS (لإرسال إيميل لكِ فوراً)
-emailjs.init("YOUR_PUBLIC_KEY"); 
+emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
 
-const employeeForm = document.getElementById('employeeForm');
-const tableBody = document.getElementById('tableBody');
-
-// --- وظيفة HR: إضافة موظف جديد ---
-employeeForm.addEventListener('submit', (e) => {
+// --- 2. إرسال البيانات من الـ HR ---
+const form = document.getElementById('employeeForm');
+form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const name = document.getElementById('fullName').value;
-    const dept = document.getElementById('department').value;
 
-    push(employeesRef, {
-        name: name,
-        department: dept,
-        status: "Pending",
-        date: new Date().toLocaleDateString()
-    }).then(() => {
-        // إرسال إشعار لبريدك
-        sendEmailNotification(name, dept);
-        alert("تم إرسال الطلب لقسم IT");
-        employeeForm.reset();
+    const data = {
+        employeeId: document.getElementById('employeeId').value,
+        nationalId: document.getElementById('nationalId').value,
+        fullNameAr: document.getElementById('fullNameAr').value,
+        fullNameEn: document.getElementById('fullNameEn').value,
+        phoneNumber: document.getElementById('phoneNumber').value,
+        department: document.getElementById('department').value,
+        section: document.getElementById('section').value,
+        jobPosition: document.getElementById('jobPosition').value,
+        empType: document.getElementById('empType').value,
+        joiningYear: document.getElementById('joiningYear').value,
+        schoolEmail: document.getElementById('schoolEmail').value,
+        status: "Pending"
+    };
+
+    push(employeesRef, data).then(() => {
+        sendEmailNotification(data);
+        alert("تم الإرسال وحفظ البيانات بنجاح!");
+        form.reset();
     });
 });
 
-// --- وظيفة IT: تحديث الجدول تلقائياً ---
+// --- 3. عرض البيانات للـ IT (Real-time) ---
 onValue(employeesRef, (snapshot) => {
+    const tableBody = document.getElementById('tableBody');
     tableBody.innerHTML = "";
     snapshot.forEach((child) => {
         const id = child.key;
-        const val = child.val();
-        
+        const emp = child.val();
         const row = `
             <tr>
-                <td><strong>${val.name}</strong></td>
-                <td>${val.department}</td>
-                <td><span class="status-badge ${val.status.toLowerCase()}">${val.status}</span></td>
+                <td>${emp.fullNameEn}</td>
+                <td>${emp.employeeId}</td>
+                <td>${emp.section}</td>
+                <td><span class="status-badge ${emp.status === 'Pending' ? 'pending' : 'active'}">${emp.status}</span></td>
                 <td>
-                    ${val.status === 'Pending' ? `<button class="btn-create" onclick="updateStatus('${id}', 'Active')">إنشاء الإيميل</button>` : ''}
-                    <button class="btn-disable" onclick="updateStatus('${id}', 'Disabled')">Disable</button>
-                    <button style="background:#64748b" onclick="deleteRecord('${id}')">حذف</button>
+                    <button onclick="updateStatus('${id}', 'Active')" style="color:green">تفعيل</button>
+                    <button onclick="updateStatus('${id}', 'Disabled')" style="color:red">تعطيل</button>
                 </td>
             </tr>
         `;
@@ -60,23 +63,15 @@ onValue(employeesRef, (snapshot) => {
     });
 });
 
-// --- وظائف التحكم ---
+// --- 4. وظائف الإشعارات والتحكم ---
 window.updateStatus = (id, newStatus) => {
     update(ref(db, `employees/${id}`), { status: newStatus });
-    if(newStatus === 'Active') alert("تم تحديث الحالة لـ Active");
 };
 
-window.deleteRecord = (id) => {
-    if(confirm("هل تريد حذف السجل نهائياً؟")) {
-        remove(ref(db, `employees/${id}`));
-    }
-};
-
-function sendEmailNotification(name, dept) {
-    // كود إرسال إيميل بسيط عبر EmailJS
+function sendEmailNotification(emp) {
     emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
-        to_name: "Maysa",
-        from_name: "IT System",
-        message: `يوجد موظف جديد: ${name} في قسم ${dept}. يرجى تجهيز الحساب.`
+        subject: "موظف جديد بانتظار الحساب: " + emp.fullNameEn,
+        message: `الاسم: ${emp.fullNameAr}\nالقسم: ${emp.department}\nالرقم الوظيفي: ${emp.employeeId}`,
+        to_email: "your-it-email@school.com"
     });
 }
