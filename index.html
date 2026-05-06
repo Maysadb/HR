@@ -1,62 +1,46 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT Management Portal | Ms Maysa</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- استدعاء مكتبة EmailJS للإشعارات -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>نظام إدارة حسابات الموظفين</h1>
-            <div class="badge">برمجة وتصميم: Ms Maysa</div>
-        </header>
+<section class="card">
+    <h2><i class="icon">📝</i> نموذج تعيين موظف جديد (HR)</h2>
+    <form id="employeeForm">
+        <!-- المجموعه الأولى: البيانات الشخصية -->
+        <div class="form-group-title">البيانات الشخصية</div>
+        <div class="form-row">
+            <input type="text" id="fullNameAr" placeholder="الاسم الكامل (عربي)" required>
+            <input type="text" id="fullNameEn" placeholder="Full Name (English)" required>
+        </div>
+        <div class="form-row">
+            <input type="text" id="nationalId" placeholder="رقم الهوية / الإقامة (National/Iqama ID)" required>
+            <input type="tel" id="phoneNumber" placeholder="رقم الهاتف (Telephone Number)" required>
+        </div>
 
-        <main>
-            <!-- قسم الـ HR -->
-            <section class="card">
-                <h2><i class="icon">👤</i> إضافة موظف جديد (HR)</h2>
-                <form id="employeeForm">
-                    <div class="form-group">
-                        <input type="text" id="fullName" placeholder="اسم الموظف الكامل" required>
-                        <select id="department" required>
-                            <option value="">اختر القسم...</option>
-                            <option value="IT">IT Department</option>
-                            <option value="HR">Human Resources</option>
-                            <option value="Marketing">Marketing</option>
-                            <option value="Finance">Finance</option>
-                        </select>
-                        <button type="submit" id="addBtn">إرسال طلب لـ IT</button>
-                    </div>
-                </form>
-            </section>
+        <!-- المجموعة الثانية: البيانات الوظيفية -->
+        <div class="form-group-title">البيانات الوظيفية</div>
+        <div class="form-row">
+            <input type="text" id="employeeId" placeholder="الرقم الوظيفي (Employee ID)" required>
+            <input type="number" id="joiningYear" placeholder="سنة الالتحاق (Joining Year)" min="2000" max="2099" required>
+        </div>
+        <div class="form-row">
+            <select id="department" required>
+                <option value="">اختر القسم (Department)</option>
+                <option value="IT">IT</option>
+                <option value="Academic">Academic</option>
+                <option value="Admin">Admin</option>
+            </select>
+            <input type="text" id="section" placeholder="الفرع / القسم الفرعي (Section)">
+        </div>
+        <div class="form-row">
+            <input type="text" id="jobPosition" placeholder="المسمى الوظيفي (Job Position)" required>
+            <input type="text" id="empType" placeholder="نوع التوظيف (Type - Full time/Part time)">
+        </div>
 
-            <!-- قسم الـ IT -->
-            <section class="card">
-                <h2><i class="icon">🛠️</i> لوحة تحكم الـ IT Admin</h2>
-                <div class="table-wrapper">
-                    <table id="employeeTable">
-                        <thead>
-                            <tr>
-                                <th>الموظف</th>
-                                <th>القسم</th>
-                                <th>الحالة</th>
-                                <th>الإجراءات</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableBody">
-                            <!-- البيانات تظهر هنا تلقائياً -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </main>
-    </div>
+        <!-- المجموعة الثالثة: بيانات التواصل والـ IT -->
+        <div class="form-group-title">بيانات التواصل والـ IT</div>
+        <div class="form-row">
+            <input type="email" id="schoolEmail" placeholder="الإيميل المدرسي (School Email)">
+            <input type="text" id="phoneExtension" placeholder="التحويلة الداخلية (Phone Extension)">
+        </div>
+        
+        <textarea id="comments" placeholder="ملاحظات إضافية (Comments)" rows="3"></textarea>
 
-    <!-- Firebase SDK -->
-    <script type="module" src="script.js"></script>
-</body>
-</html>
+        <button type="submit" id="addBtn" class="btn-submit">إرسال الطلب لقسم IT</button>
+    </form>
+</section>
