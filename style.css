@@ -1,36 +1,41 @@
-.form-group-title {
-    width: 100%;
-    font-weight: bold;
-    color: var(--primary);
-    margin: 20px 0 10px 0;
-    border-bottom: 2px solid #e2e8f0;
-    padding-bottom: 5px;
+:root {
+    --primary: #2c3e50;
+    --accent: #3498db;
+    --success: #27ae60;
+    --danger: #e74c3c;
 }
 
-.form-row {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 15px;
-    flex-wrap: wrap;
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0; padding: 20px;
+    direction: rtl;
 }
 
-.form-row input, .form-row select {
-    flex: 1;
-    min-width: calc(50% - 15px); /* لجعل كل حقلين بجانب بعضهما */
-}
+.container { max-width: 1100px; margin: auto; }
 
-textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    resize: vertical;
-}
+header { text-align: center; margin-bottom: 30px; }
+.dev-badge { background: #fff; padding: 5px 15px; border-radius: 20px; display: inline-block; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 
-.btn-submit {
-    width: 100%;
-    font-size: 1.1rem;
-    padding: 15px;
-    background-color: var(--primary);
-}
+.card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 30px; }
+
+.section-title { border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px; color: var(--primary); }
+
+.grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+
+.input-group { display: flex; flex-direction: column; }
+.input-group label { font-weight: 600; margin-bottom: 8px; font-size: 14px; }
+.input-group input, .input-group select { padding: 12px; border: 1px solid #ddd; border-radius: 8px; outline-color: var(--accent); }
+
+.full-width { grid-column: 1 / -1; }
+
+.btn-main { width: 100%; padding: 15px; margin-top: 20px; border: none; background: var(--accent); color: white; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+.btn-main:hover { background: var(--primary); }
+
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+th, td { padding: 15px; text-align: right; border-bottom: 1px solid #eee; }
+th { background: #f8f9fa; }
+
+.status-badge { padding: 5px 10px; border-radius: 12px; font-size: 12px; }
+.pending { background: #fff3cd; color: #856404; }
+.active { background: #d4edda; color: #155724; }
