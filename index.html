@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Management Portal | Ms Maysa</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- استدعاء مكتبة EmailJS للإشعارات -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>نظام إدارة حسابات الموظفين</h1>
+            <div class="badge">برمجة وتصميم: Ms Maysa</div>
+        </header>
+
+        <main>
+            <!-- قسم الـ HR -->
+            <section class="card">
+                <h2><i class="icon">👤</i> إضافة موظف جديد (HR)</h2>
+                <form id="employeeForm">
+                    <div class="form-group">
+                        <input type="text" id="fullName" placeholder="اسم الموظف الكامل" required>
+                        <select id="department" required>
+                            <option value="">اختر القسم...</option>
+                            <option value="IT">IT Department</option>
+                            <option value="HR">Human Resources</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Finance">Finance</option>
+                        </select>
+                        <button type="submit" id="addBtn">إرسال طلب لـ IT</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- قسم الـ IT -->
+            <section class="card">
+                <h2><i class="icon">🛠️</i> لوحة تحكم الـ IT Admin</h2>
+                <div class="table-wrapper">
+                    <table id="employeeTable">
+                        <thead>
+                            <tr>
+                                <th>الموظف</th>
+                                <th>القسم</th>
+                                <th>الحالة</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <!-- البيانات تظهر هنا تلقائياً -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module" src="script.js"></script>
+</body>
+</html>
