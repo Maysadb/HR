@@ -1,46 +1,115 @@
-<section class="card">
-    <h2><i class="icon">📝</i> نموذج تعيين موظف جديد (HR)</h2>
-    <form id="employeeForm">
-        <!-- المجموعه الأولى: البيانات الشخصية -->
-        <div class="form-group-title">البيانات الشخصية</div>
-        <div class="form-row">
-            <input type="text" id="fullNameAr" placeholder="الاسم الكامل (عربي)" required>
-            <input type="text" id="fullNameEn" placeholder="Full Name (English)" required>
-        </div>
-        <div class="form-row">
-            <input type="text" id="nationalId" placeholder="رقم الهوية / الإقامة (National/Iqama ID)" required>
-            <input type="tel" id="phoneNumber" placeholder="رقم الهاتف (Telephone Number)" required>
-        </div>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Employee Lifecycle | Ms Maysa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>نظام أتمتة حسابات الموظفين</h1>
+            <div class="dev-badge">برمجة وتصميم: Ms Maysa</div>
+        </header>
 
-        <!-- المجموعة الثانية: البيانات الوظيفية -->
-        <div class="form-group-title">البيانات الوظيفية</div>
-        <div class="form-row">
-            <input type="text" id="employeeId" placeholder="الرقم الوظيفي (Employee ID)" required>
-            <input type="number" id="joiningYear" placeholder="سنة الالتحاق (Joining Year)" min="2000" max="2099" required>
-        </div>
-        <div class="form-row">
-            <select id="department" required>
-                <option value="">اختر القسم (Department)</option>
-                <option value="IT">IT</option>
-                <option value="Academic">Academic</option>
-                <option value="Admin">Admin</option>
-            </select>
-            <input type="text" id="section" placeholder="الفرع / القسم الفرعي (Section)">
-        </div>
-        <div class="form-row">
-            <input type="text" id="jobPosition" placeholder="المسمى الوظيفي (Job Position)" required>
-            <input type="text" id="empType" placeholder="نوع التوظيف (Type - Full time/Part time)">
-        </div>
+        <!-- قسم الإدخال للـ HR -->
+        <section class="card">
+            <h2 class="section-title">📝 نموذج إضافة موظف (HR)</h2>
+            <form id="employeeForm">
+                <div class="grid-layout">
+                    <div class="input-group">
+                        <label>Employee ID</label>
+                        <input type="text" id="employeeId" placeholder="رقم الموظف" required>
+                    </div>
+                    <div class="input-group">
+                        <label>National/Iqama ID</label>
+                        <input type="text" id="nationalId" placeholder="رقم الهوية" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Full Name Arabic</label>
+                        <input type="text" id="fullNameAr" placeholder="الاسم بالعربي" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Full English Name</label>
+                        <input type="text" id="fullNameEn" placeholder="Name in English" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Telephone Number</label>
+                        <input type="tel" id="phoneNumber" placeholder="رقم التواصل" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Department</label>
+                        <select id="department" required>
+                            <option value="">اختر القسم</option>
+                            <option value="Academic">Academic</option>
+                            <option value="Admin">Admin</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Section</label>
+                        <select id="section" required>
+                            <option value="">اختر المرحلة</option>
+                            <option value="KG">KG</option>
+                            <option value="ES">ES</option>
+                            <option value="MS">MS</option>
+                            <option value="HS">HS</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Job Position</label>
+                        <select id="jobPosition" required>
+                            <option value="">اختر مادة التدريس / الوظيفة</option>
+                            <option value="Math">Math</option>
+                            <option value="Science">Science</option>
+                            <option value="English">English</option>
+                            <option value="ICT">ICT</option>
+                            <option value="Admin Role">Admin Role</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Type</label>
+                        <select id="empType" required>
+                            <option value="">اختر نوع التوظيف</option>
+                            <option value="AJEER TEACHER">AJEER TEACHER</option>
+                            <option value="Sponsored Teacher">Sponsored Teacher</option>
+                            <option value="Saudi Admin">Saudi Admin</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Joining Year</label>
+                        <input type="number" id="joiningYear" placeholder="2026">
+                    </div>
+                    <div class="input-group full-width">
+                        <label>School Email</label>
+                        <input type="email" id="schoolEmail" placeholder="example@school.com">
+                    </div>
+                </div>
+                <button type="submit" class="btn-main">إرسال الطلب للـ IT</button>
+            </form>
+        </section>
 
-        <!-- المجموعة الثالثة: بيانات التواصل والـ IT -->
-        <div class="form-group-title">بيانات التواصل والـ IT</div>
-        <div class="form-row">
-            <input type="email" id="schoolEmail" placeholder="الإيميل المدرسي (School Email)">
-            <input type="text" id="phoneExtension" placeholder="التحويلة الداخلية (Phone Extension)">
-        </div>
-        
-        <textarea id="comments" placeholder="ملاحظات إضافية (Comments)" rows="3"></textarea>
-
-        <button type="submit" id="addBtn" class="btn-submit">إرسال الطلب لقسم IT</button>
-    </form>
-</section>
+        <!-- لوحة تحكم الـ IT -->
+        <section class="card">
+            <h2 class="section-title">🖥️ لوحة إدارة الـ IT</h2>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>الاسم</th>
+                            <th>ID</th>
+                            <th>المرحلة</th>
+                            <th>الحالة</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
